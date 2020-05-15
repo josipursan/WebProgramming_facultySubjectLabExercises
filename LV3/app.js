@@ -1,10 +1,20 @@
 // Zadatak 1 kod ide ovdje
 
+var firstSide_string = "firstSide";
+var secondSide_string = "secondSide";
+var cat_info_class_string = ".cat-info"; 
+var fighterBox_string = "fighter-box";
+var randomFightersButton_string = "randomFight";
+
+var firstSide = document.getElementById(firstSide_string);
+var secondSide = document.getElementById(secondSide_string);
+
 var firstSide_fightButtonApproval = 0;
 var secondSide_fightButtonApproval = 0;
 toggleFighterButton(0,0);
 
-
+let randomFightersButton = document.getElementById(randomFightersButton_string);
+randomFightersButton.addEventListener("click", getRandomFighters);
 
 let allFighters = document.getElementsByClassName("fighter-box");
 
@@ -16,7 +26,33 @@ for(let i = 0; i<allFighters.length; i++)
 
 
 
+function getRandomFighters()
+{
+    let array_firstSideFighters = Array.from(firstSide.getElementsByClassName(fighterBox_string));
+    var firstchosenFighter = array_firstSideFighters[Math.floor(Math.random()*array_firstSideFighters.length)];
 
+    let array_secondSideFighters = Array.from(secondSide.getElementsByClassName(fighterBox_string));
+    var secondChosenFighter = array_secondSideFighters[Math.floor(Math.random()*array_secondSideFighters.length)];
+    do
+    {
+        if(JSON.parse(firstchosenFighter.attributes[1].value).name == JSON.parse(secondChosenFighter.attributes[1].value).name)
+        {
+            firstchosenFighter = array_firstSideFighters[Math.floor(Math.random()*array_firstSideFighters.length)];
+            secondChosenFighter = array_secondSideFighters[Math.floor(Math.random()*array_secondSideFighters.length)];
+        }
+        else
+        {
+            break;
+        }
+    }while(true)
+
+    fillFighterData(firstchosenFighter, 1);
+    putFighterImage(firstchosenFighter, 1);
+
+    fillFighterData(secondChosenFighter, 2);
+    putFighterImage(secondChosenFighter, 2);
+    toggleFighterButton(1, 1);
+}
 
 
 function toggleFighterButton(boolValueToogle_firstSide, boolValueToggle_secondSide)
@@ -39,18 +75,51 @@ function toggleFighterButton(boolValueToogle_firstSide, boolValueToggle_secondSi
     }
 }
 
+function fillFighterData(fighterObject, sideParameter)
+{
+    let clickedFighterName = JSON.parse(fighterObject.attributes[1].value).name; 
+    let clickedFighterAge = JSON.parse(fighterObject.attributes[1].value).age;
+    let clickedFighterCatInfo = JSON.parse(fighterObject.attributes[1].value).catInfo;
+    let clickedFighterWins = JSON.parse(fighterObject.attributes[1].value).record.wins;
+    let clickedFighterLosses = JSON.parse(fighterObject.attributes[1].value).record.loss;
+    
+    if(sideParameter == 1)
+    {
+        var Side_catInfo = firstSide.querySelector(cat_info_class_string).children;
+    }
+    else if(sideParameter == 2)
+    {
+        var Side_catInfo = secondSide.querySelector(cat_info_class_string).children;;
+    }
+    let array_Side_catInfo = Array.from(Side_catInfo);
+    array_Side_catInfo[0].innerText = "Name : " + clickedFighterName;
+    array_Side_catInfo[1].innerText = "Age : " + clickedFighterAge;
+    array_Side_catInfo[2].innerText = "Cat Info : " + clickedFighterCatInfo;
+    array_Side_catInfo[3].innerText = "Wins : " + clickedFighterWins + " " + "Losses : " + clickedFighterLosses;
+}
 
+function putFighterImage(fighterObject, sideParameter)
+{
+    let clickedFighter_picturePath = fighterObject.firstElementChild.getAttribute("src");
+    if(sideParameter == 1)
+    {
+        var Side_featuredCatFighter = firstSide.getElementsByClassName("featured-cat-fighter-image");
+    }
+    else if(sideParameter == 2)
+    {
+        var Side_featuredCatFighter = secondSide.getElementsByClassName("featured-cat-fighter-image");
+    }
+    
+    let featuredCatFighter = Array.from(Side_featuredCatFighter);
+    featuredCatFighter[0].src = clickedFighter_picturePath;
+}
 
 /////////////////////////////////////////////////////////////////////////////   \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 
 function getFighterOnClick(fighterObject)
 {
-    let firstSide_string = "firstSide";
-    let secondSide_string = "secondSide";
-
-    let firstSide = document.getElementById(firstSide_string);
-    let secondSide = document.getElementById(secondSide_string);
+    let clickedFighterName = JSON.parse(fighterObject.attributes[1].value).name; 
 
     let newParent = fighterObject.parentNode;
 
@@ -66,75 +135,31 @@ function getFighterOnClick(fighterObject)
             var currentSide = newParent.id; //zapamti na koju stranu je kliknut, tj. na kojoj strani se nalazi macka koja je kliknuta
             break;
         }
-
     }while(true);
 
     if(currentSide.localeCompare(firstSide_string) == 0)
-    {
-        let clickedFighterName = JSON.parse(fighterObject.attributes[1].value).name; 
-        let clickedFighterAge = JSON.parse(fighterObject.attributes[1].value).age;
-        let clickedFighterCatInfo = JSON.parse(fighterObject.attributes[1].value).catInfo;
-        let clickedFighterWins = JSON.parse(fighterObject.attributes[1].value).record.wins;
-        let clickedFighterLosses = JSON.parse(fighterObject.attributes[1].value).record.loss;
-        
-        let firstSide_catInfo = firstSide.querySelector(".cat-info").children;
-        let array_firstSide_catInfo = Array.from(firstSide_catInfo);
-        array_firstSide_catInfo[0].innerText = "Name : " + clickedFighterName;
-        array_firstSide_catInfo[1].innerText = "Age : " + clickedFighterAge;
-        array_firstSide_catInfo[2].innerText = "Cat Info : " + clickedFighterCatInfo;
-        array_firstSide_catInfo[3].innerText = "Wins : " + clickedFighterWins + " " + "Losses : " + clickedFighterLosses;
-        // Cijeli gornji segment koda koji sluzi za popunjavanje polja odabranog fightera s njegovim podacima
-        // izdvojiti u zasebnu funkciju. Funkcija ce primati jedan parametar, fighter object, nema returna. 
-        
-        console.log(array_firstSide_catInfo[0].innerText);
-
-
-
-        let clickedFighter_picturePath = fighterObject.firstElementChild.getAttribute("src");   //dohvacena putanja slike kliknute macke
+    {        
+        fillFighterData(fighterObject, 1);
+        putFighterImage(fighterObject, 1);
 
         let secondSide_fighters = secondSide.getElementsByClassName("fighter-box");
-        
 
         Array.from(secondSide_fighters).forEach((item) => 
         {
             const currentFighterName = JSON.parse(item.dataset.info).name;
-            if(currentFighterName.localeCompare(clickedFighterName) == 0)
+            if(currentFighterName.localeCompare(clickedFighterName) == 0)    //TU BACA ERROR AKO VARIJABLA clickedFighterName u funkciji fillFighterData ima keyword "let" ili "var"
             {
                 item.style.opacity = "0.3";
+                item.style.pointerEvents = "none";
             }
         });
-
-        // 5 linija koda ispod je za prebacivanje slike u tamo gdje treba biti slika odabranog fightera
-        let firstSide_featuredCatFighter = firstSide.getElementsByClassName("featured-cat-fighter-image");
-        console.log(firstSide_featuredCatFighter);
-
-        let featuredCatFighter = Array.from(firstSide_featuredCatFighter);
-        featuredCatFighter[0].src = clickedFighter_picturePath;
-        console.log(featuredCatFighter[0].getAttribute("src"));
-        //Gornjih 5 linija za prebacivanje slike odabranog borca u gornju poziciju izdvojiti kao 
-        //zasebnu funkcionalnost. Funkciji se ne predaje nista, mora samo imati pristup firstSide varijabli
-        //sto znaci da ju mozda treba prebaciti u globalnu varijablu, ili napraviti onaj neki data object
-        //kao sto je Omrcen napravio, i onda passati odgovarajuci parametar za firstSide. 
 
         firstSide_fightButtonApproval = 1;
     }
     else
     {
-        let clickedFighterName = JSON.parse(fighterObject.attributes[1].value).name;
-        
-        let clickedFighterNameR = JSON.parse(fighterObject.attributes[1].value).name; 
-        let clickedFighterAgeR = JSON.parse(fighterObject.attributes[1].value).age;
-        let clickedFighterCatInfoR = JSON.parse(fighterObject.attributes[1].value).catInfo;
-        let clickedFighterWinsR = JSON.parse(fighterObject.attributes[1].value).record.wins;
-        let clickedFighterLossesR = JSON.parse(fighterObject.attributes[1].value).record.loss;
-        
-        let secondSide_catInfo = secondSide.querySelector(".cat-info").children;
-        let array_secondSide_catInfo = Array.from(secondSide_catInfo);
-        array_secondSide_catInfo[0].innerText = "Name : " + clickedFighterNameR;
-        array_secondSide_catInfo[1].innerText = "Age : " + clickedFighterAgeR;
-        array_secondSide_catInfo[2].innerText = "Cat Info : " + clickedFighterCatInfoR;
-        array_secondSide_catInfo[3].innerText = "Wins : " + clickedFighterWinsR + " " + "Losses : " + clickedFighterLossesR;
-        // Gornji segment koda je ista situacija kao i u taj isti kod prije - izdvojiti u zasebnu funkciju. 
+        fillFighterData(fighterObject, 2); 
+        putFighterImage(fighterObject, 2);
 
         let firstSide_fighters = firstSide.getElementsByClassName("fighter-box");
 
@@ -143,20 +168,10 @@ function getFighterOnClick(fighterObject)
             const currentFighterName = JSON.parse(item.dataset.info).name;
             if(currentFighterName.localeCompare(clickedFighterName) == 0)
             {
-                console.log("Current fighter name");
-                console.log(currentFighterName);
                 item.style.opacity = 0.3;
-
+                item.style.pointerEvents = "none";
             }
         });
-        let clickedFighter_picturePath = fighterObject.firstElementChild.getAttribute("src");
-        let secondSide_featuredCatFighter = secondSide.getElementsByClassName("featured-cat-fighter-image");
-        console.log(secondSide_featuredCatFighter);
-
-        let featuredCatFighter = Array.from(secondSide_featuredCatFighter);
-        featuredCatFighter[0].src = clickedFighter_picturePath;
-        // 5 linija iznad - ista prica kao i njihovi blizanci.
-
         secondSide_fightButtonApproval = 1;
     }
 
