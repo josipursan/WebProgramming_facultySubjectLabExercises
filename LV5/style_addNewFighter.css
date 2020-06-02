@@ -1,0 +1,60 @@
+#topRow
+{
+    margin-top: 2%;
+}
+
+#titleColumn
+ {
+
+}
+
+#buttonColumn
+{
+    padding-left: 45%;
+}
+
+#fighterForm_Column
+{
+    margin-top: 2%;
+    padding-left: 2%;
+}
+
+#fighterForm_secondRow
+{
+    margin-top: 1%;
+}
+
+#fighterForm_thirdRow
+{
+    margin-top: 1%;
+}
+
+#fighterForm_fourthRow
+{
+    margin-top: 1%;
+    margin-left: 0.5%;
+}
+
+#fighterForm_fourthRow input
+{
+    width: 40%;
+}
+
+#fighterForm_fifthRow
+{
+    margin-top: 1%;
+}
+
+
+#fighterForm_sixthRow
+{
+    margin-top: 1%;
+}
+
+#buttonSubmit
+{
+    width: 45%;
+}
+
+
+

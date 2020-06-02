@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src = "jquery-3.4.1.min.js"></script>
+    <link rel = "stylesheet" href = "bootstrap.min.css">
+    <script src = "popper.min.js"></script>
+    <script src = "bootstrap.min.js"></script>
+
+    <link rel = "stylesheet" type = "text/css" href = "style_addNewFighter.css">
+
+</head>
+
+
+<body>
+    <div class = "container-fluid text-center">
+        <div class = "row" id = "topRow">
+            <div class = "col-sm-4" id = "titleColumn">
+                <h1>CFC 3 - ADD NEW FIGHTER</h1>
+            </div>
+            <div class="col-sm-8" id = "buttonColumn">
+                <a href = "index.html">
+                    <button type = "button" class = "btn btn-primary" id = "button_backToStart">Go Back -></button>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class = "container-fluid text-center">
+        <div class="row">
+            <div class="col-sm-12" id = "fighterForm_Column">
+                <form action = "addFighter.php" method = "GET">
+                    <fieldset>
+                        <div class = "row" id = "fighterForm_firstRow">
+                            <div class = "col-sm-1">
+                                <label>Name</label>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <input type = "text" name = "fighterName"/>
+                            </div>
+                        </div>
+
+                        <div class = "row" id = "fighterForm_secondRow">
+                            <div class = "col-sm-1">
+                                <label>Age</label>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <input type = "text" name = "fighterAge"/>
+                            </div>
+                        </div>
+
+                        <div class = "row" id = "fighterForm_thirdRow">
+                            <div class = "col-sm-1">
+                                <label>Cat info</label>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <input type = "text" name = "fighterCatInfo"/>
+                            </div>
+                        </div>
+
+                        <div class = "row" id = "fighterForm_fourthRow">
+                            <div class = "col-sm-1">
+                                <label>Wins</label>
+                                <input type = "number" name = "fighterWins"/>
+                            </div>
+
+                            <div class="col-sm-1">
+                                <label>Loss</label>
+                                <input type = "number" name = "fighterLoss"/>
+                            </div>
+                        </div>
+
+                        <div class = "row" id = "fighterForm_fifthRow">
+                            <div class = "col-sm-1">
+                                <label>Cat image</label>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <button type = "button" class = "btn btn-primary" id = "button_addFighterPicture">Add new cat image</button>
+                            </div>
+                        </div>
+                        
+                        <div class = "row" id = "fighterForm_sixthRow">
+                            <div class="col-sm-3">
+                                <button type = "submit" class = "btn btn-primary" id = "buttonSubmit">Submit</button>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    
+</body>
