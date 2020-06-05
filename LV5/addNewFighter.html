@@ -9,7 +9,7 @@
     <script src = "bootstrap.min.js"></script>
 
     <link rel = "stylesheet" type = "text/css" href = "style_addNewFighter.css">
-
+    <script type="text/javascript" src = "addNewFighter_Functionality.js"></script>
 </head>
 
 
@@ -38,7 +38,7 @@
                             </div>
 
                             <div class="col-sm-2">
-                                <input type = "text" name = "fighterName"/>
+                                <input type = "text" name = "fighterName" id = "fighterNameInput"/>
                             </div>
                         </div>
 
@@ -48,7 +48,7 @@
                             </div>
 
                             <div class="col-sm-2">
-                                <input type = "text" name = "fighterAge"/>
+                                <input type = "text" name = "fighterAge" id = "fighterAgeInput"/>
                             </div>
                         </div>
 
@@ -58,19 +58,19 @@
                             </div>
 
                             <div class="col-sm-2">
-                                <input type = "text" name = "fighterCatInfo"/>
+                                <input type = "text" name = "fighterCatInfo" id = "fighterCatInfoInput"/>
                             </div>
                         </div>
 
                         <div class = "row" id = "fighterForm_fourthRow">
                             <div class = "col-sm-1">
                                 <label>Wins</label>
-                                <input type = "number" name = "fighterWins"/>
+                                <input type = "number" min = "0" step = "1" name = "fighterWins" id = "fighterWinsInput"/>
                             </div>
 
                             <div class="col-sm-1">
                                 <label>Loss</label>
-                                <input type = "number" name = "fighterLoss"/>
+                                <input type = "number" min = "0" step = "1" name = "fighterLoss" id = "fighterLossInput"/>
                             </div>
                         </div>
 
